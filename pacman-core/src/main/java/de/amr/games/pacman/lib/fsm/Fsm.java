@@ -62,10 +62,10 @@ public abstract class Fsm<S extends FsmState<C>, C> {
 		this.name = name;
 	}
 
-	@Override
+	/*@Override
 	public String toString() {
 		return "FSM[name=%s, state=%s, prev=%s]".formatted(name, currentState, prevState);
-	}
+	}*/
 
 	/**
 	 * @return the context passed to the state lifecycle methods

@@ -25,6 +25,7 @@ package de.amr.games.pacman.event;
 
 import static de.amr.games.pacman.lib.Globals.checkNotNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -39,7 +40,7 @@ import de.amr.games.pacman.lib.math.Vector2i;
 public class GameEvents {
 
 	private static GameController gameController;
-	private static Collection<GameEventListener> subscribers = new ConcurrentLinkedQueue<>();
+	private static Collection<GameEventListener> subscribers = new ArrayList<>();// new ConcurrentLinkedQueue<>();
 	private static boolean soundEventsEnabled = true;
 
 	private GameEvents() {

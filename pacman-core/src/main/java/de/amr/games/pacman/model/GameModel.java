@@ -23,22 +23,16 @@ SOFTWARE.
  */
 package de.amr.games.pacman.model;
 
-import static de.amr.games.pacman.lib.Globals.checkGameVariant;
 import static de.amr.games.pacman.lib.Globals.checkLevelNumber;
 import static de.amr.games.pacman.lib.Globals.checkNotNull;
 import static de.amr.games.pacman.lib.Globals.v2i;
 import static de.amr.games.pacman.lib.steering.NavigationPoint.np;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Properties;
 
 import org.tinylog.Logger;
 
@@ -97,7 +91,7 @@ public class GameModel {
 		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 	};
 	
-	public static final List<Vector2i> PACMAN_RED_ZONE = List.of(v2i(12, 14), v2i(15, 14), v2i(12, 26), v2i(15, 26));
+	public static final List<Vector2i> PACMAN_RED_ZONE  =dev.webfx.platform.util.collection.Collections.listOf(v2i(12, 14),v2i(15, 14),v2i(12, 26),v2i(15, 26));
 
 	public static final byte[][][] MS_PACMAN_MAPS =  {
 		{
@@ -273,42 +267,47 @@ public class GameModel {
 	 * <p>
 	 */
 	public static int mazeNumberMsPacMan(int levelNumber) {
-		return switch (levelNumber) {
-		case 1, 2 -> 1;
-		case 3, 4, 5 -> 2;
-		case 6, 7, 8, 9 -> 3;
-		case 10, 11, 12, 13 -> 4;
-		default -> (levelNumber - 14) % 8 < 4 ? 5 : 6;
-		};
+		switch (levelNumber) {
+			case 1:
+			case 2: return 1;
+			case 3:
+			case 4:
+			case 5: return 2;
+			case 6:
+			case 7:
+			case 8:
+			case 9: return 3;
+			case 10:
+			case 11:
+			case 12:
+			case 13: return 4;
+			default: return (levelNumber - 14) % 8 < 4 ? 5 : 6;
+		}
 	}
 	
 	private static int mapNumberMsPacMan(int levelNumber) {
-		return switch (levelNumber) {
-		case 1, 2 -> 1;
-		case 3, 4, 5 -> 2;
-		case 6, 7, 8, 9 -> 3;
-		case 10, 11, 12, 13 -> 4;
-		default -> (levelNumber - 14) % 8 < 4 ? 3 : 4;
-		};
+		switch (levelNumber) {
+			case 1:
+			case 2: return 1;
+			case 3:
+			case 4:
+			case 5: return 2;
+			case 6:
+			case 7:
+			case 8:
+			case 9: return 3;
+			case 10:
+			case 11:
+			case 12:
+			case 13: return 4;
+			default: return (levelNumber - 14) % 8 < 4 ? 3 : 4;
+		}
 	}
 	
-	private static final List<NavigationPoint> PACMAN_DEMOLEVEL_ROUTE = List.of( //
-			np(12, 26), np(9, 26), np(12, 32), np(15, 32), np(24, 29), np(21, 23), np(18, 23), np(18, 20), np(18, 17),
-			np(15, 14), np(12, 14), np(9, 17), np(6, 17), np(6, 11), np(6, 8), np(6, 4), np(1, 8), np(6, 8), np(9, 8),
-			np(12, 8), np(6, 4), np(6, 8), np(6, 11), np(1, 8), np(6, 8), np(9, 8), np(12, 14), np(9, 17), np(6, 17),
-			np(0, 17), np(21, 17), np(21, 23), np(21, 26), np(24, 29), /* avoid moving up: */ np(26, 29), np(15, 32),
-			np(12, 32), np(3, 29), np(6, 23), np(9, 23), np(12, 26), np(15, 26), np(18, 23), np(21, 23), np(24, 29),
-			/* avoid moving up: */ np(26, 29), np(15, 32), np(12, 32), np(3, 29), np(6, 23) //
-	);
+	private static final List<NavigationPoint> PACMAN_DEMOLEVEL_ROUTE  =dev.webfx.platform.util.collection.Collections.listOf(np(12, 26),np(9, 26),np(12, 32),np(15, 32),np(24, 29),np(21, 23),np(18, 23),np(18, 20),np(18, 17),np(15, 14),np(12, 14),np(9, 17),np(6, 17),np(6, 11),np(6, 8),np(6, 4),np(1, 8),np(6, 8),np(9, 8),np(12, 8),np(6, 4),np(6, 8),np(6, 11),np(1, 8),np(6, 8),np(9, 8),np(12, 14),np(9, 17),np(6, 17),np(0, 17),np(21, 17),np(21, 23),np(21, 26),np(24, 29),np(26, 29),np(15, 32),np(12, 32),np(3, 29),np(6, 23),np(9, 23),np(12, 26),np(15, 26),np(18, 23),np(21, 23),np(24, 29),np(26, 29),np(15, 32),np(12, 32),np(3, 29),np(6, 23));
 	
 	@SuppressWarnings("unused")
-	private static final List<NavigationPoint> GHOST_0_ROUTE = List.of( //
-			np(21, 4, Direction.DOWN), np(21, 8, Direction.DOWN), np(21, 11, Direction.RIGHT), np(26, 8, Direction.LEFT),
-			np(21, 8, Direction.DOWN), np(26, 8, Direction.UP), np(26, 8, Direction.DOWN), np(21, 11, Direction.DOWN),
-			np(21, 17, Direction.RIGHT), // enters
-
-			np(99, 99, Direction.DOWN) //
-	);
+	private static final List<NavigationPoint> GHOST_0_ROUTE  =dev.webfx.platform.util.collection.Collections.listOf(np(21, 4, Direction.DOWN),np(21, 8, Direction.DOWN),np(21, 11, Direction.RIGHT),np(26, 8, Direction.LEFT),np(21, 8, Direction.DOWN),np(26, 8, Direction.UP),np(26, 8, Direction.DOWN),np(21, 11, Direction.DOWN),np(21, 17, Direction.RIGHT),np(99, 99, Direction.DOWN));
 
 	//@formatter:on
 
@@ -430,11 +429,11 @@ public class GameModel {
 
 	public int[] huntingDurations(int levelNumber) {
 		checkLevelNumber(levelNumber);
-		return switch (variant) {
-		case MS_PACMAN -> HUNTING_DURATIONS_MS_PACMAN[levelNumber <= 4 ? 0 : 1];
-		case PACMAN -> HUNTING_DURATIONS_PACMAN[levelNumber == 1 ? 0 : levelNumber <= 4 ? 1 : 2];
-		default -> throw new IllegalGameVariantException(variant);
-		};
+		switch (variant) {
+			case MS_PACMAN: return HUNTING_DURATIONS_MS_PACMAN[levelNumber <= 4 ? 0 : 1];
+			case PACMAN: return HUNTING_DURATIONS_PACMAN[levelNumber == 1 ? 0 : levelNumber <= 4 ? 1 : 2];
+			default: throw new IllegalGameVariantException(variant);
+		}
 	}
 
 	// Note: To avoid religious wars I named the peach/orange thingy peach_orange
@@ -517,11 +516,12 @@ public class GameModel {
 	public void enterLevel(int levelNumber) {
 		checkLevelNumber(levelNumber);
 
-		var map = switch (variant) {
-		case MS_PACMAN -> MS_PACMAN_MAPS[mapNumberMsPacMan(levelNumber) - 1];
-		case PACMAN -> PACMAN_MAP;
-		default -> throw new IllegalGameVariantException(variant);
-		};
+		byte[][] map;
+		switch (variant) {
+			case MS_PACMAN: map = MS_PACMAN_MAPS[mapNumberMsPacMan(levelNumber) - 1]; break;
+			case PACMAN: map = PACMAN_MAP; break;
+			default: throw new IllegalGameVariantException(variant);
+		}
 		level = new GameLevel(this, new World(map), levelNumber, levelData(levelNumber), false);
 
 		if (level.number() == 1) {
@@ -549,19 +549,21 @@ public class GameModel {
 		GameEvents.setSoundEventsEnabled(false);
 		scoringEnabled = false;
 		switch (variant) {
-		case MS_PACMAN -> {
+			case MS_PACMAN: {
 			level = new GameLevel(this, new World(MS_PACMAN_MAPS[0]), 1, levelData(1), true);
 			level.setPacSteering(new RuleBasedSteering());
 			level.letsGetReadyToRumbleAndShowGuys(true);
 			Logger.info("Ms. Pac-Man demo level entered");
+			break;
 		}
-		case PACMAN -> {
+			case PACMAN: {
 			level = new GameLevel(this, new World(PACMAN_MAP), 1, levelData(1), true);
 			level.setPacSteering(new RouteBasedSteering(PACMAN_DEMOLEVEL_ROUTE));
 			level.letsGetReadyToRumbleAndShowGuys(true);
 			Logger.info("Pac-Man demo level entered");
+			break;
 		}
-		default -> throw new IllegalGameVariantException(variant);
+			default: throw new IllegalGameVariantException(variant);
 		}
 	}
 
@@ -654,16 +656,17 @@ public class GameModel {
 			GameEvents.publishSoundEvent(SE_EXTRA_LIFE);
 		}
 	}
-
+/*
 	private static File highscoreFile(GameVariant variant) {
 		checkGameVariant(variant);
 		var dir = System.getProperty("user.home");
-		return switch (variant) {
-		case PACMAN -> new File(dir, "highscore-pacman.xml");
-		case MS_PACMAN -> new File(dir, "highscore-ms_pacman.xml");
-		default -> throw new IllegalGameVariantException(variant);
-		};
+		switch (variant) {
+			case PACMAN: return new File(dir, "highscore-pacman.xml");
+			case MS_PACMAN: return new File(dir, "highscore-ms_pacman.xml");
+			default: throw new IllegalGameVariantException(variant);
+		}
 	}
+
 
 	private static Score loadHighscore(File file) {
 		checkNotNull(file);
@@ -685,12 +688,14 @@ public class GameModel {
 			return new Score();
 		}
 	}
+*/
 
 	public void loadHighscore() {
-		highScore = loadHighscore(highscoreFile(variant()));
+		highScore = new Score(); // loadHighscore(highscoreFile(variant()));
 	}
 
 	public void saveNewHighscore() {
+/*
 		var file = highscoreFile(variant());
 		var oldHiscore = loadHighscore(file);
 		if (highScore.points() <= oldHiscore.points()) {
@@ -701,12 +706,15 @@ public class GameModel {
 		p.setProperty("level", String.valueOf(highScore.levelNumber()));
 		p.setProperty("date", highScore.date().format(DateTimeFormatter.ISO_LOCAL_DATE));
 		try (var out = new FileOutputStream(file)) {
-			p.storeToXML(out, "%s Hiscore".formatted(variant()));
+			p.storeToXML(out, "%s Hiscore"*/
+/*.formatted(variant())*//*
+);
 			Logger.info("Highscore saved. File: '{}' Points: {} Level: {}", file.getAbsolutePath(), highScore.points(),
 					highScore.levelNumber());
 		} catch (Exception x) {
 			Logger.error("Highscore could not be saved. File '{}' Reason: {}", file, x.getMessage());
 		}
+*/
 	}
 
 	/** @return number of coins inserted. */

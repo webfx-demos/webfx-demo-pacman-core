@@ -42,8 +42,8 @@ public class GameStateChangeEvent extends GameEvent {
 		this.newGameState = newGameState;
 	}
 
-	@Override
+	/*@Override
 	public String toString() {
 		return "%s(%s->%s)".formatted(getClass().getSimpleName(), oldGameState, newGameState);
-	}
+	}*/
 }

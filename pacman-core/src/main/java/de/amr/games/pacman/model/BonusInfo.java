@@ -24,8 +24,42 @@ SOFTWARE.
 
 package de.amr.games.pacman.model;
 
-public record BonusInfo(byte symbol, int points) {
+public class BonusInfo {
+
+	byte symbol; int points;
+
+	public BonusInfo(byte symbol, int points) {
+		this.symbol = symbol;
+		this.points = points;
+	}
+
 	public BonusInfo(int symbol, int points) {
 		this((byte) symbol, points);
+	}
+
+	public byte symbol() {
+		return symbol;
+	}
+
+	public int points() {
+		return points;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		BonusInfo bonusInfo = (BonusInfo) o;
+
+		if (symbol != bonusInfo.symbol) return false;
+		return points == bonusInfo.points;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = symbol;
+		result = 31 * result + points;
+		return result;
 	}
 }

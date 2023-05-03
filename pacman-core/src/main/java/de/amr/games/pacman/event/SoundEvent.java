@@ -40,8 +40,8 @@ public class SoundEvent extends GameEvent {
 		this.id = id;
 	}
 
-	@Override
+	/*@Override
 	public String toString() {
 		return "SoundEvent('%s')".formatted(id);
-	}
+	}*/
 }

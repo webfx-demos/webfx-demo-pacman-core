@@ -88,9 +88,11 @@ public class Globals {
 			throw new IllegalGameVariantException(variant);
 		}
 		switch (variant) {
-		case MS_PACMAN, PACMAN -> { // ok
+			case MS_PACMAN:
+			case PACMAN: { // ok
+				break;
 		}
-		default -> throw new IllegalGameVariantException(variant);
+			default: throw new IllegalGameVariantException(variant);
 		}
 	}
 
@@ -114,7 +116,7 @@ public class Globals {
 
 	public static double requirePositive(double value, String messageFormat) {
 		if (value < 0) {
-			throw new IllegalArgumentException(messageFormat.formatted(value));
+			throw new IllegalArgumentException(messageFormat + " " + value);
 		}
 		return value;
 	}
@@ -150,7 +152,7 @@ public class Globals {
 			a = b;
 			b = tmp;
 		}
-		return a + RND.nextFloat(b - a);
+		return a + RND.nextFloat() * (b - a);
 	}
 
 	/**
@@ -165,12 +167,12 @@ public class Globals {
 			a = b;
 			b = tmp;
 		}
-		return a + RND.nextDouble(b - a);
+		return a + RND.nextDouble() * (b - a);
 	}
 
 	public static boolean inPercentOfCases(int percent) {
 		if (percent < 0 || percent > 100) {
-			throw new IllegalArgumentException("Percent value must be in range [0, 100] but is %d".formatted(percent));
+			throw new IllegalArgumentException("Percent value must be in range [0, 100] but is %d"/*.formatted(percent)*/);
 		}
 		if (percent == 0) {
 			return false;
@@ -245,21 +247,21 @@ public class Globals {
 	 */
 	public static boolean differsAtMost(double delta, double value, double target) {
 		if (delta < 0) {
-			throw new IllegalArgumentException("Difference must not be negative but is %f".formatted(delta));
+			throw new IllegalArgumentException("Difference must not be negative but is %f"/*.formatted(delta)*/);
 		}
 		return value >= (target - delta) && value <= (target + delta);
 	}
 
-	public static byte[][] copyByteArray2D(byte[][] array) {
+	/*public static byte[][] copyByteArray2D(byte[][] array) {
 		return Arrays.stream(array).map(byte[]::clone).toArray(byte[][]::new);
-	}
+	}*/
 
 	@SafeVarargs
 	public static <T> boolean oneOf(T value, T... alternatives) {
-		return switch (alternatives.length) {
-		case 0 -> false;
-		case 1 -> value.equals(alternatives[0]);
-		default -> Stream.of(alternatives).anyMatch(value::equals);
-		};
+		switch (alternatives.length) {
+			case 0: return false;
+			case 1: return value.equals(alternatives[0]);
+			default: return Stream.of(alternatives).anyMatch(value::equals);
+		}
 	}
 }

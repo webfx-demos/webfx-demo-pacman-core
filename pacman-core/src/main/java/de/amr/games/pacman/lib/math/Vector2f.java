@@ -31,7 +31,30 @@ import static de.amr.games.pacman.lib.Globals.differsAtMost;
  * 
  * @author Armin Reichert
  */
-public record Vector2f(float x, float y) {
+public class Vector2f {
+
+	private float x;
+	private float y;
+
+	public Vector2f(float x, float y) {
+		this.x = x;
+		this.y = y;
+	}
+
+	public float x() {
+		return x;
+	}
+
+	public float y() {
+		return y;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = (x != +0.0f ? Float.floatToIntBits(x) : 0);
+		result = 31 * result + (y != +0.0f ? Float.floatToIntBits(y) : 0);
+		return result;
+	}
 
 	public static final Vector2f ZERO = new Vector2f(0, 0);
 
@@ -90,8 +113,8 @@ public record Vector2f(float x, float y) {
 		return Math.abs(v.x - x) <= EPSILON && Math.abs(v.y - y) <= EPSILON;
 	}
 
-	@Override
+	/*@Override
 	public String toString() {
 		return String.format("(%.2f,%.2f)", x, y);
-	}
+	}*/
 }

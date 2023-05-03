@@ -25,6 +25,8 @@ package de.amr.games.pacman.model.world;
 
 import de.amr.games.pacman.lib.math.Vector2i;
 
+import java.util.Objects;
+
 /**
  * A portal connects two tunnel ends leading out of the map.
  * <p>
@@ -33,7 +35,29 @@ import de.amr.games.pacman.lib.math.Vector2i;
  * 
  * @author Armin Reichert
  */
-public record Portal(Vector2i leftTunnelEnd, Vector2i rightTunnelEnd, int depth) {
+public class Portal {
+
+	Vector2i leftTunnelEnd;
+	Vector2i rightTunnelEnd;
+	int depth;
+
+	public Portal(Vector2i leftTunnelEnd, Vector2i rightTunnelEnd, int depth) {
+		this.leftTunnelEnd = leftTunnelEnd;
+		this.rightTunnelEnd = rightTunnelEnd;
+		this.depth = depth;
+	}
+
+	public Vector2i leftTunnelEnd() {
+		return leftTunnelEnd;
+	}
+
+	public Vector2i rightTunnelEnd() {
+		return rightTunnelEnd;
+	}
+
+	public int depth() {
+		return depth;
+	}
 
 	public boolean contains(Vector2i tile) {
 		for (int i = 1; i <= depth; ++i) {
@@ -45,5 +69,26 @@ public record Portal(Vector2i leftTunnelEnd, Vector2i rightTunnelEnd, int depth)
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Portal portal = (Portal) o;
+
+		if (depth != portal.depth) return false;
+		if (!Objects.equals(leftTunnelEnd, portal.leftTunnelEnd))
+			return false;
+		return Objects.equals(rightTunnelEnd, portal.rightTunnelEnd);
+	}
+
+	@Override
+	public int hashCode() {
+		int result = leftTunnelEnd != null ? leftTunnelEnd.hashCode() : 0;
+		result = 31 * result + (rightTunnelEnd != null ? rightTunnelEnd.hashCode() : 0);
+		result = 31 * result + depth;
+		return result;
 	}
 }

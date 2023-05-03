@@ -1,6 +1,6 @@
 package de.amr.games.pacman.test;
 
-import static de.amr.games.pacman.lib.Globals.copyByteArray2D;
+//import static de.amr.games.pacman.lib.Globals.copyByteArray2D;
 import static de.amr.games.pacman.lib.Globals.v2f;
 import static de.amr.games.pacman.lib.Globals.v2i;
 import static java.util.function.Predicate.not;
@@ -115,7 +115,7 @@ public class WorldTest {
 		assertEquals(2, world.portals().size());
 	}
 
-	@Test
+	/*@Test
 	public void testCopyMapData() {
 		byte[][] map = { { 0, 1, 2 }, { 3, 4, 5 }, { 6, 7, 8 } };
 		byte[][] copy = copyByteArray2D(map);
@@ -132,5 +132,5 @@ public class WorldTest {
 		assertEquals(4, copy[1][1]);
 		copy[1][1] = (byte) 42;
 		assertNotEquals(map[1][1], copy[1][1]);
-	}
+	}*/
 }

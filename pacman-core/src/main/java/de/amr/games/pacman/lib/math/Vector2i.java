@@ -32,7 +32,41 @@ import de.amr.games.pacman.lib.steering.Direction;
  * 
  * @author Armin Reichert
  */
-public record Vector2i(int x, int y) {
+public class Vector2i {
+
+	private int x;
+	private int y;
+
+	public Vector2i(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+
+	public int x() {
+		return x;
+	}
+
+	public int y() {
+		return y;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Vector2i vector2i = (Vector2i) o;
+
+		if (x != vector2i.x) return false;
+		return y == vector2i.y;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = x;
+		result = 31 * result + y;
+		return result;
+	}
 
 	public static final Vector2i ZERO = new Vector2i(0, 0);
 
@@ -68,10 +102,10 @@ public record Vector2i(int x, int y) {
 		return Stream.of(Direction.UP, Direction.RIGHT, Direction.DOWN, Direction.LEFT).map(dir -> this.plus(dir.vector()));
 	}
 
-	@Override
+	/*@Override
 	public String toString() {
 		return String.format("(%2d,%2d)", x, y);
-	}
+	}*/
 
 	public Vector2f toFloatVec() {
 		return new Vector2f(x, y);

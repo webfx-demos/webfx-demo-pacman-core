@@ -55,11 +55,11 @@ public class StaticBonus extends Entity implements Bonus {
 		return this;
 	}
 
-	@Override
+	/*@Override
 	public String toString() {
 		return "[StaticBonus symbol=%d value=%d state=%s position=%s timer=%d]".formatted(info.symbol(), info.points(),
 				state, position, timer);
-	}
+	}*/
 
 	@Override
 	public byte state() {
@@ -111,10 +111,11 @@ public class StaticBonus extends Entity implements Bonus {
 	@Override
 	public void update(GameLevel level) {
 		switch (state) {
-		case Bonus.STATE_INACTIVE -> {
+			case Bonus.STATE_INACTIVE: {
 			// stay inactive
+				break;
 		}
-		case Bonus.STATE_EDIBLE -> {
+			case Bonus.STATE_EDIBLE: {
 			if (sameTile(level.pac())) {
 				level.game().scorePoints(points());
 				eat();
@@ -123,15 +124,17 @@ public class StaticBonus extends Entity implements Bonus {
 			} else {
 				--timer;
 			}
+			break;
 		}
-		case Bonus.STATE_EATEN -> {
+			case Bonus.STATE_EATEN: {
 			if (timer == 0) {
 				expire();
 			} else {
 				--timer;
 			}
+			break;
 		}
-		default -> throw new IllegalStateException();
+			default: throw new IllegalStateException();
 		}
 	}
 }

@@ -148,11 +148,11 @@ public enum GameState implements FsmState<GameModel> {
 			game.level().ifPresent(level -> {
 				gc.getManualPacSteering().setEnabled(true);
 				switch (level.huntingPhase()) {
-				case 0 -> publishSoundEvent(GameModel.SE_HUNTING_PHASE_STARTED_0);
-				case 2 -> publishSoundEvent(GameModel.SE_HUNTING_PHASE_STARTED_2);
-				case 4 -> publishSoundEvent(GameModel.SE_HUNTING_PHASE_STARTED_4);
-				case 6 -> publishSoundEvent(GameModel.SE_HUNTING_PHASE_STARTED_6);
-				default -> {
+					case 0: publishSoundEvent(GameModel.SE_HUNTING_PHASE_STARTED_0); break;
+					case 2: publishSoundEvent(GameModel.SE_HUNTING_PHASE_STARTED_2); break;
+					case 4: publishSoundEvent(GameModel.SE_HUNTING_PHASE_STARTED_4); break;
+					case 6: publishSoundEvent(GameModel.SE_HUNTING_PHASE_STARTED_6); break;
+					default: {
 					// no sound event
 				}
 				}
@@ -361,9 +361,9 @@ public enum GameState implements FsmState<GameModel> {
 
 		@Override
 		public void onEnter(GameModel game) {
-			lastTestedLevel = switch (game.variant()) {
-			case MS_PACMAN -> 18;
-			case PACMAN -> 20;
+			switch (game.variant()) {
+				case MS_PACMAN: lastTestedLevel = 18; break;
+				case PACMAN: lastTestedLevel = 20; break;
 			};
 			timer.restartIndefinitely();
 			game.init();

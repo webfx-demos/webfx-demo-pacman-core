@@ -45,14 +45,14 @@ public class FloorPlan {
 	public static final byte DOOR = 4;
 
 	private static char symbol(byte b) {
-		return switch (b) {
-		case CORNER -> '+';
-		case EMPTY -> ' ';
-		case HWALL -> '\u2014';
-		case VWALL -> '|';
-		case DOOR -> 'd';
-		default -> '?';
-		};
+		switch (b) {
+			case CORNER: return '+';
+			case EMPTY: return ' ';
+			case HWALL: return '\u2014';
+			case VWALL: return '|';
+			case DOOR: return 'd';
+			default: return  '?';
+		}
 	}
 
 	private byte[][] info;
@@ -90,7 +90,7 @@ public class FloorPlan {
 		return v2i(x / resolution, y / resolution);
 	}
 
-	public void print(Writer w, boolean useSymbols) {
+	/*public void print(Writer w, boolean useSymbols) {
 		PrintWriter p = new PrintWriter(w);
 		for (int y = 0; y < sizeY(); ++y) {
 			for (int x = 0; x < sizeX(); ++x) {
@@ -98,7 +98,7 @@ public class FloorPlan {
 			}
 			p.println();
 		}
-	}
+	}*/
 
 	private Vector2i northOf(int tileX, int tileY, int i) {
 		int dy = i / resolution == 0 ? -1 : 0;

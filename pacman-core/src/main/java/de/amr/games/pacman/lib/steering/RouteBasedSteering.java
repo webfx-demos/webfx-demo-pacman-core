@@ -26,6 +26,7 @@ package de.amr.games.pacman.lib.steering;
 
 import java.util.List;
 
+import dev.webfx.platform.util.collection.Collections;
 import org.tinylog.Logger;
 
 import de.amr.games.pacman.controller.Steering;
@@ -39,8 +40,8 @@ import de.amr.games.pacman.model.actors.Creature;
  */
 public class RouteBasedSteering implements Steering {
 
-	private List<NavigationPoint> route = List.of();
-	private int targetIndex;
+	private List<NavigationPoint> route = Collections.listOf(new NavigationPoint[]{});
+    private int targetIndex;
 	private boolean complete;
 
 	public RouteBasedSteering() {

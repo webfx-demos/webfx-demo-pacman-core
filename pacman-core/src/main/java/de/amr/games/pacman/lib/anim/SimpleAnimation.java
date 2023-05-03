@@ -136,8 +136,7 @@ public class SimpleAnimation<T> implements Animated {
 	@Override
 	public T frame() {
 		if (frameIndex >= frames.length) {
-			throw new IllegalStateException("Trying to access animation frame at index %d but there are only %d frames. %s"
-					.formatted(frameIndex, frames.length, getClass().getName()));
+			throw new IllegalStateException("Trying to access animation frame at index " + frameIndex + " but there are only " + frames.length + " frames. " + getClass().getName());
 		}
 		return frames[frameIndex];
 	}
@@ -155,8 +154,7 @@ public class SimpleAnimation<T> implements Animated {
 	@Override
 	public void setFrameIndex(int i) {
 		if (frameIndex >= frames.length) {
-			throw new IllegalStateException("Trying to set animation frame index to %d but there are only %d frames. %s"
-					.formatted(frameIndex, frames.length, getClass().getName()));
+			throw new IllegalStateException("Trying to set animation frame index to " + frameIndex + " but there are only " + frames.length + " frames. " + getClass().getName());
 		}
 		frameIndex = i;
 		frameTick = 0;

@@ -46,6 +46,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.tinylog.Logger;
@@ -342,11 +343,11 @@ public class GameLevel {
 	}
 
 	public List<Vector2i> upwardsBlockedTiles() {
-		return switch (game.variant()) {
-		case MS_PACMAN -> Collections.emptyList();
-		case PACMAN -> GameModel.PACMAN_RED_ZONE;
-		default -> throw new IllegalGameVariantException(game.variant());
-		};
+		switch (game.variant()) {
+			case MS_PACMAN: return Collections.emptyList();
+			case PACMAN: return GameModel.PACMAN_RED_ZONE;
+			default: throw new IllegalGameVariantException(game.variant());
+		}
 	}
 
 	/**
@@ -404,7 +405,7 @@ public class GameLevel {
 	public void doGhostHuntingAction(Ghost ghost) {
 		boolean cruiseElroy = ghost.id() == RED_GHOST && cruiseElroyState > 0;
 		switch (game.variant()) {
-		case MS_PACMAN -> {
+			case MS_PACMAN: {
 			/*
 			 * In Ms. Pac-Man, Blinky and Pinky move randomly during the *first* hunting/scatter phase. Some say, the original
 			 * intention had been to randomize the scatter target of *all* ghosts in Ms. Pac-Man but because of a bug, only
@@ -417,15 +418,17 @@ public class GameLevel {
 			} else {
 				ghost.scatter(this);
 			}
+			break;
 		}
-		case PACMAN -> {
+			case PACMAN: {
 			if (chasingPhase().isPresent() || cruiseElroy) {
 				ghost.chase(this);
 			} else {
 				ghost.scatter(this);
 			}
+			break;
 		}
-		default -> throw new IllegalGameVariantException(game.variant());
+			default: throw new IllegalGameVariantException(game.variant());
 		}
 	}
 
@@ -581,7 +584,7 @@ public class GameLevel {
 		}
 
 		// Who must die?
-		memo.pacPrey = ghosts(FRIGHTENED).filter(pac::sameTile).toList();
+		memo.pacPrey = ghosts(FRIGHTENED).filter(pac::sameTile).collect(Collectors.toList());
 		memo.pacKilled = !game.isImmune() && ghosts(HUNTING_PAC).anyMatch(pac::sameTile);
 
 		// Update world and guys
@@ -604,7 +607,7 @@ public class GameLevel {
 
 	private void logMemo() {
 		var memoText = memo.toString();
-		if (!memoText.isBlank()) {
+		if (!memoText.isEmpty()) {
 			Logger.trace(memo);
 		}
 	}
@@ -613,7 +616,7 @@ public class GameLevel {
 	 * Called by cheat action only.
 	 */
 	public void killAllHuntingAndFrightenedGhosts() {
-		memo.pacPrey = ghosts(HUNTING_PAC, FRIGHTENED).toList();
+		memo.pacPrey = ghosts(HUNTING_PAC, FRIGHTENED).collect(Collectors.toList());
 		numGhostsKilledByEnergizer = 0;
 		killEdibleGhosts();
 	}

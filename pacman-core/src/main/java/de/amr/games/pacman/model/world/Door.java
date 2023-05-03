@@ -32,12 +32,19 @@ import static de.amr.games.pacman.lib.Globals.v2f;
 import de.amr.games.pacman.lib.math.Vector2f;
 import de.amr.games.pacman.lib.math.Vector2i;
 
+import java.util.Objects;
+
 /**
  * @author Armin Reichert
  */
-public record Door(Vector2i leftWing, Vector2i rightWing) {
+public class Door {
 
-	public Door {
+	Vector2i leftWing;
+	Vector2i rightWing;
+
+	public Door(Vector2i leftWing, Vector2i rightWing) {
+		this.leftWing = leftWing;
+		this.rightWing = rightWing;
 		checkNotNull(leftWing);
 		checkNotNull(rightWing);
 	}
@@ -55,5 +62,31 @@ public record Door(Vector2i leftWing, Vector2i rightWing) {
 	 */
 	public Vector2f entryPosition() {
 		return v2f(TS * rightWing.x() - HTS, TS * (rightWing.y() - 1));
+	}
+
+	public Vector2i leftWing() {
+		return leftWing;
+	}
+
+	public Vector2i rightWing() {
+		return rightWing;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Door door = (Door) o;
+
+		if (!Objects.equals(leftWing, door.leftWing)) return false;
+		return Objects.equals(rightWing, door.rightWing);
+	}
+
+	@Override
+	public int hashCode() {
+		int result = leftWing != null ? leftWing.hashCode() : 0;
+		result = 31 * result + (rightWing != null ? rightWing.hashCode() : 0);
+		return result;
 	}
 }

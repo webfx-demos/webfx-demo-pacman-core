@@ -63,10 +63,10 @@ public class Option<T> {
 		this.fnValueOf = fnValueOf;
 	}
 
-	@Override
+	/*@Override
 	public String toString() {
 		return "[Option name=%s value=%s]".formatted(name, value);
-	}
+	}*/
 
 	public String getName() {
 		return name;

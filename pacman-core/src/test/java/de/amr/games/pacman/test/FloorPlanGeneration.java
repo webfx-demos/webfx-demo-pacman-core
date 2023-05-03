@@ -2,25 +2,15 @@ package de.amr.games.pacman.test;
 
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
-
-import org.tinylog.Logger;
-
-import de.amr.games.pacman.model.GameModel;
-import de.amr.games.pacman.model.world.FloorPlan;
-import de.amr.games.pacman.model.world.World;
-
 /**
  * Test for floor plan generation.
  * 
  * @author Armin Reichert
  */
+
 public class FloorPlanGeneration {
 
+/*
 	public static void main(String[] args) {
 		test();
 	}
@@ -50,14 +40,16 @@ public class FloorPlanGeneration {
 	}
 
 	private static File file(String pattern, int mapNumber, int resolution) {
-		return new File(DIR, String.format(pattern, mapNumber, resolution));
+		return new File(DIR, Strings.format(pattern, mapNumber, resolution));
 	}
 
 	private static void createFloorPlan(World world, File file, int resolution) {
 		long time = System.nanoTime();
 		var floorPlan = new FloorPlan(world, resolution);
 		time = System.nanoTime() - time;
-		var timeLog = "%.2f millis".formatted(time / 1e6);
+		var timeLog = "%.2f millis"*/
+/*.formatted(time / 1e6)*//*
+;
 		try (var w = new FileWriter(file, StandardCharsets.UTF_8)) {
 			floorPlan.print(w, true);
 			Logger.info("Created file {} ({})", file.getAbsolutePath(), timeLog);
@@ -65,4 +57,5 @@ public class FloorPlanGeneration {
 			e.printStackTrace();
 		}
 	}
+*/
 }

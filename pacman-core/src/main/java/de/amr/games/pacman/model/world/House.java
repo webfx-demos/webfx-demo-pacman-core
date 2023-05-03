@@ -36,9 +36,20 @@ import de.amr.games.pacman.lib.math.Vector2i;
 /**
  * @author Armin Reichert
  */
-public record House(Vector2i topLeftTile, Vector2i size, Door door, List<Vector2f> seatPositions, Vector2f center) {
+public class House {
 
-	public House {
+	Vector2i topLeftTile;
+	Vector2i size;
+	Door door;
+	List<Vector2f> seatPositions;
+	Vector2f center;
+
+	public House(Vector2i topLeftTile, Vector2i size, Door door, List<Vector2f> seatPositions, Vector2f center) {
+		this.topLeftTile = topLeftTile;
+		this.size = size;
+		this.door = door;
+		this.seatPositions = seatPositions;
+		this.center = center;
 		checkTileNotNull(topLeftTile);
 		checkNotNull(size);
 		checkNotNull(door);
@@ -53,6 +64,26 @@ public record House(Vector2i topLeftTile, Vector2i size, Door door, List<Vector2
 		}
 	}
 
+	public Vector2i topLeftTile() {
+		return topLeftTile;
+	}
+
+	public Vector2i size() {
+		return size;
+	}
+
+	public Door door() {
+		return door;
+	}
+
+	public List<Vector2f> seatPositions() {
+		return seatPositions;
+	}
+
+	public Vector2f center() {
+		return center;
+	}
+
 	public Vector2f seatPosition(int i) {
 		return seatPositions.get(i);
 	}
@@ -65,5 +96,30 @@ public record House(Vector2i topLeftTile, Vector2i size, Door door, List<Vector2
 		Vector2i bottomRightTileOutside = topLeftTile.plus(size());
 		return tile.x() >= topLeftTile.x() && tile.x() < bottomRightTileOutside.x() //
 				&& tile.y() >= topLeftTile.y() && tile.y() < bottomRightTileOutside.y();
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		House house = (House) o;
+
+		if (!Objects.equals(topLeftTile, house.topLeftTile)) return false;
+		if (!Objects.equals(size, house.size)) return false;
+		if (!Objects.equals(door, house.door)) return false;
+		if (!Objects.equals(seatPositions, house.seatPositions))
+			return false;
+		return Objects.equals(center, house.center);
+	}
+
+	@Override
+	public int hashCode() {
+		int result = topLeftTile != null ? topLeftTile.hashCode() : 0;
+		result = 31 * result + (size != null ? size.hashCode() : 0);
+		result = 31 * result + (door != null ? door.hashCode() : 0);
+		result = 31 * result + (seatPositions != null ? seatPositions.hashCode() : 0);
+		result = 31 * result + (center != null ? center.hashCode() : 0);
+		return result;
 	}
 }

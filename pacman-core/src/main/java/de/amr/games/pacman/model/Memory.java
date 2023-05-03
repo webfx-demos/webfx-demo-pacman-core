@@ -63,7 +63,7 @@ public class Memory {
 		killedGhosts.clear();
 	}
 
-	@Override
+	/*@Override
 	public String toString() {
 
 		var foodText = "";
@@ -103,7 +103,7 @@ public class Memory {
 		var killedGhostsText = killedGhosts.isEmpty() ? "" : killedGhosts.toString();
 
 		return "%s%s%s%s%s%s".formatted(foodText, bonusText, powerText, pacKilledText, preyText, killedGhostsText);
-	}
+	}*/
 
 	public boolean edibleGhostsExist() {
 		return !pacPrey.isEmpty();

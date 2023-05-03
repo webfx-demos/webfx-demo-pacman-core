@@ -28,7 +28,49 @@ import de.amr.games.pacman.lib.math.Vector2i;
 /**
  * @author Armin Reichert
  */
-public record NavigationPoint(int x, int y, Direction dir) {
+public class NavigationPoint {
+
+	private int x;
+	private int y;
+	private Direction dir;
+
+	public NavigationPoint(int x, int y, Direction dir) {
+		this.x = x;
+		this.y = y;
+		this.dir = dir;
+	}
+
+	public int x() {
+		return x;
+	}
+
+	public int y() {
+		return y;
+	}
+
+	public Direction dir() {
+		return dir;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		NavigationPoint that = (NavigationPoint) o;
+
+		if (x != that.x) return false;
+		if (y != that.y) return false;
+		return dir == that.dir;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = x;
+		result = 31 * result + y;
+		result = 31 * result + (dir != null ? dir.hashCode() : 0);
+		return result;
+	}
 
 	public static NavigationPoint np(Vector2i tile, Direction dir) {
 		return new NavigationPoint(tile.x(), tile.y(), dir);

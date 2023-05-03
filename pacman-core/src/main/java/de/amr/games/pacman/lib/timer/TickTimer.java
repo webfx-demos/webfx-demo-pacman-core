@@ -57,7 +57,7 @@ public class TickTimer {
 	}
 
 	public static String ticksToString(long ticks) {
-		return ticks == INDEFINITE ? "indefinite" : "%d".formatted(ticks);
+		return ticks == INDEFINITE ? "indefinite" : "%d"/*.formatted(ticks)*/;
 	}
 
 	private final String name;
@@ -90,11 +90,11 @@ public class TickTimer {
 		}
 	}
 
-	@Override
+	/*@Override
 	public String toString() {
 		return "[%s %s tick: %s remaining: %s total: %s]".formatted(name, state, ticksToString(tick),
 				ticksToString(remaining()), ticksToString(duration));
-	}
+	}*/
 
 	public State state() {
 		return state;
@@ -139,13 +139,15 @@ public class TickTimer {
 	 */
 	public void start() {
 		switch (state) {
-		case RUNNING -> {
+			case RUNNING: {
 			Logger.trace("Timer {} not started, already running", this);
+			break;
 		}
-		case EXPIRED -> {
+			case EXPIRED: {
 			Logger.trace("Timer {} not started, has expired", this);
+			break;
 		}
-		default -> {
+			default: {
 			state = RUNNING;
 			Logger.trace("{} started", this);
 			fireEvent(new TickTimerEvent(Type.STARTED));
@@ -176,21 +178,25 @@ public class TickTimer {
 	 */
 	public void stop() {
 		switch (state) {
-		case RUNNING -> {
+			case RUNNING: {
 			state = STOPPED;
 			Logger.trace("{} stopped", this);
 			fireEvent(new TickTimerEvent(Type.STOPPED));
+			break;
 		}
-		case STOPPED -> {
+			case STOPPED: {
 			Logger.trace("{} already stopped", this);
+			break;
 		}
-		case READY -> {
+			case READY: {
 			Logger.trace("{} not stopped, was not running", this);
+			break;
 		}
-		case EXPIRED -> {
+			case EXPIRED: {
 			Logger.trace("{} not stopped, has expired", this);
+			break;
 		}
-		default -> throw new IllegalArgumentException("Unexpected value: " + state);
+			default: throw new IllegalArgumentException("Unexpected value: " + state);
 		}
 	}
 

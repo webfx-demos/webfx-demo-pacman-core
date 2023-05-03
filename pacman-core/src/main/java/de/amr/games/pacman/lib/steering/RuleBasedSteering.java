@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.tinylog.Logger;
 
@@ -61,6 +62,7 @@ public class RuleBasedSteering implements Steering {
 		List<Ghost> frightenedGhosts;
 		List<Float> frightenedGhostsDistance;
 
+/*
 		@Override
 		public String toString() {
 			StringBuilder s = new StringBuilder("-- Begin autopilot info\n");
@@ -84,6 +86,7 @@ public class RuleBasedSteering implements Steering {
 			s.append("-- End autopilot info");
 			return s.toString();
 		}
+*/
 	}
 
 	@Override
@@ -117,9 +120,9 @@ public class RuleBasedSteering implements Steering {
 			data.hunterBehindDistance = pac.tile().manhattanDistance(hunterBehind.tile());
 		}
 		data.frightenedGhosts = level.ghosts(GhostState.FRIGHTENED)
-				.filter(ghost -> ghost.tile().manhattanDistance(pac.tile()) <= CollectedData.MAX_GHOST_CHASE_DIST).toList();
+				.filter(ghost -> ghost.tile().manhattanDistance(pac.tile()) <= CollectedData.MAX_GHOST_CHASE_DIST).collect(Collectors.toList());
 		data.frightenedGhostsDistance = data.frightenedGhosts.stream()
-				.map(ghost -> ghost.tile().manhattanDistance(pac.tile())).toList();
+				.map(ghost -> ghost.tile().manhattanDistance(pac.tile())).collect(Collectors.toList());
 		return data;
 	}
 

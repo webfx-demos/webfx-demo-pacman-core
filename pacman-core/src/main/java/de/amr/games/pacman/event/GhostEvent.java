@@ -41,8 +41,8 @@ public class GhostEvent extends GameEvent {
 		this.ghost = ghost;
 	}
 
-	@Override
+	/*@Override
 	public String toString() {
 		return "%s: tile %s, ghost %s".formatted(type, tile, ghost);
-	}
+	}*/
 }

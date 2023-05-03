@@ -57,7 +57,7 @@ public class MovingBonus extends Creature implements Bonus {
 	private final RouteBasedSteering steering = new RouteBasedSteering();
 
 	public MovingBonus(BonusInfo info) {
-		super("MovingBonus-%d-%d".formatted(info.symbol(), info.points()));
+		super("MovingBonus-%d-%d"/*.formatted(info.symbol(), info.points())*/);
 		super.reset(); // TODO check this
 
 		this.info = info;
@@ -80,11 +80,11 @@ public class MovingBonus extends Creature implements Bonus {
 		return this;
 	}
 
-	@Override
+	/*@Override
 	public String toString() {
 		return "[MovingBonus state=%s symbol=%d value=%d timer=%d tile=%s]".formatted(state, symbol(), points(), timer,
 				tile());
-	}
+	}*/
 
 	@Override
 	public byte state() {
@@ -139,9 +139,10 @@ public class MovingBonus extends Creature implements Bonus {
 	@Override
 	public void update(GameLevel level) {
 		switch (state) {
-		case STATE_INACTIVE -> { // nothing to do
+			case STATE_INACTIVE: { // nothing to do
+				break;
 		}
-		case STATE_EDIBLE -> {
+			case STATE_EDIBLE: {
 			if (sameTile(level.pac())) {
 				level.game().scorePoints(points());
 				eat();
@@ -157,15 +158,17 @@ public class MovingBonus extends Creature implements Bonus {
 			navigateTowardsTarget(level);
 			tryMoving(level);
 			jumpAnimation.animate();
+			break;
 		}
-		case STATE_EATEN -> {
+			case STATE_EATEN: {
 			if (--timer == 0) {
 				setInactive();
 				Logger.trace("Bonus expired: {}", this);
 				publishGameEvent(GameEventType.BONUS_EXPIRES, tile());
 			}
+			break;
 		}
-		default -> throw new IllegalStateException();
+			default: throw new IllegalStateException();
 		}
 	}
 }

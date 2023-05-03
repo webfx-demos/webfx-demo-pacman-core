@@ -24,12 +24,12 @@ SOFTWARE.
 
 package de.amr.games.pacman.lib.anim;
 
-import static de.amr.games.pacman.lib.Globals.checkNotNull;
-
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
+
+import static de.amr.games.pacman.lib.Globals.checkNotNull;
 
 /**
  * @author Armin Reichert
@@ -47,13 +47,13 @@ public class AnimationMap {
 
 	private void checkValidEntryKey(byte key) {
 		if (key < 0 || key > animations.length - 1) {
-			throw new IllegalArgumentException("Invalid animation map key: %d".formatted(key));
+			throw new IllegalArgumentException("Invalid animation map key: " + key);
 		}
 	}
 
 	private void checkValidSelectionKey(byte key) {
 		if (key < -1 || key > animations.length - 1) {
-			throw new IllegalArgumentException("Invalid animation map key: %d".formatted(key));
+			throw new IllegalArgumentException("Invalid animation map key: "+ key);
 		}
 	}
 

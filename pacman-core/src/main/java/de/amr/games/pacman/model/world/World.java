@@ -35,6 +35,7 @@ import java.util.BitSet;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -73,11 +74,11 @@ public class World extends Entity implements AnimatedEntity {
 	 * The ghosthouse as it looks in the Arcade version of Pac-Man and Ms. Pac-Man.
 	 */
 	//@formatter:off
-	private static final House ARCADE_HOUSE = new House(
+	private static final House ARCADE_HOUSE  =new House(
 		v2i(10, 15), // top-left corner
 		v2i(8, 5),   // size in tiles
 		new Door(v2i(13, 15), v2i(14, 15)),
-		List.of(halfTileRightOf(11, 17), halfTileRightOf(13, 17), halfTileRightOf(15, 17)),
+		dev.webfx.platform.util.collection.Collections.listOf(halfTileRightOf(11, 17),halfTileRightOf(13, 17),halfTileRightOf(15, 17)),
 		halfTileRightOf(13, 17).plus(0, HTS) // center position
 	);
 	//@formatter:on
@@ -138,7 +139,7 @@ public class World extends Entity implements AnimatedEntity {
 		tileMap = new TileMap(tileMapData);
 		portals = buildPortals(tileMap);
 		eatenSet = new BitSet(tileMap.numCols() * tileMap.numRows());
-		energizerTiles = tiles().filter(this::isEnergizerTile).toList();
+		energizerTiles = tiles().filter(this::isEnergizerTile).collect(Collectors.toList());
 		totalFoodCount = (int) tiles().filter(this::isFoodTile).count();
 		uneatenFoodCount = totalFoodCount;
 	}

@@ -56,9 +56,9 @@ public class GameEvent {
 		this.tile = Optional.ofNullable(tile);
 	}
 
-	@Override
+	/*@Override
 	public String toString() {
 		var tileStr = tile.isPresent() ? " tile: %s".formatted(tile.get()) : "";
 		return String.format("%s%s", type, tileStr);
-	}
+	}*/
 }

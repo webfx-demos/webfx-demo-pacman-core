@@ -32,6 +32,7 @@ import static de.amr.games.pacman.lib.steering.Direction.UP;
 import java.util.BitSet;
 import java.util.List;
 
+import dev.webfx.platform.util.collection.Collections;
 import org.tinylog.Logger;
 
 import de.amr.games.pacman.lib.anim.Animated;
@@ -65,12 +66,9 @@ public class MsPacManIntro extends Fsm<MsPacManIntro.State, MsPacManIntro.Contex
 		public int            numBulbs             = 96;
 		public int            bulbOnDistance       = 16;
 		public Pac            msPacMan             = new Pac("Ms. Pac-Man");
-		public List<Ghost>    ghosts               = List.of(
-			new Ghost(GameModel.RED_GHOST,    "Blinky"),
-			new Ghost(GameModel.PINK_GHOST,   "Pinky"),
-			new Ghost(GameModel.CYAN_GHOST,   "Inky"),
-			new Ghost(GameModel.ORANGE_GHOST, "Sue")
-			);
+		public List<Ghost>    ghosts                ;{
+    Ghost[] elements = new Ghost[]{new Ghost(GameModel.RED_GHOST,    "Blinky"),new Ghost(GameModel.PINK_GHOST,   "Pinky"),new Ghost(GameModel.CYAN_GHOST,   "Inky"),new Ghost(GameModel.ORANGE_GHOST, "Sue")};
+        ghosts=Collections.listOf(elements);}
 		public int ghostIndex = 0;
 		//@formatter:on
 
