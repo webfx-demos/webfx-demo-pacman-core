@@ -608,7 +608,7 @@ public class GameLevel {
 	private void logMemo() {
 		var memoText = memo.toString();
 		if (!memoText.isEmpty()) {
-			Logger.trace(memo);
+			Logger.trace(memoText);
 		}
 	}
 
