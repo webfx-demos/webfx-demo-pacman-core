@@ -23,19 +23,6 @@ SOFTWARE.
  */
 package de.amr.games.pacman.model;
 
-import static de.amr.games.pacman.lib.Globals.checkLevelNumber;
-import static de.amr.games.pacman.lib.Globals.checkNotNull;
-import static de.amr.games.pacman.lib.Globals.v2i;
-import static de.amr.games.pacman.lib.steering.NavigationPoint.np;
-
-import java.time.LocalDate;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
-
-import org.tinylog.Logger;
-
 import de.amr.games.pacman.event.GameEvents;
 import de.amr.games.pacman.lib.math.Vector2i;
 import de.amr.games.pacman.lib.steering.Direction;
@@ -43,6 +30,18 @@ import de.amr.games.pacman.lib.steering.NavigationPoint;
 import de.amr.games.pacman.lib.steering.RouteBasedSteering;
 import de.amr.games.pacman.lib.steering.RuleBasedSteering;
 import de.amr.games.pacman.model.world.World;
+import dev.webfx.platform.storage.LocalStorage;
+import org.tinylog.Logger;
+
+import java.time.LocalDate;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
+
+import static de.amr.games.pacman.lib.Globals.checkLevelNumber;
+import static de.amr.games.pacman.lib.Globals.v2i;
+import static de.amr.games.pacman.lib.steering.NavigationPoint.np;
 
 /**
  * Pac-Man / Ms. Pac-Man game model.
@@ -690,12 +689,35 @@ public class GameModel {
 	}
 */
 
+/*
 	public void loadHighscore() {
-		highScore = new Score(); // loadHighscore(highscoreFile(variant()));
+		loadHighscore(highscoreFile(variant()));
+	}
+*/
+	// WebFX version of loadHighscore
+
+	public void loadHighscore() {
+		highScore = loadHighscoreInstance();
 	}
 
-	public void saveNewHighscore() {
+	private Score loadHighscoreInstance() {
+		String prefix = variant.toString();
+		String points = LocalStorage.getItem(prefix + "-points");
+		String level = LocalStorage.getItem(prefix + "-level");
+		String date = LocalStorage.getItem(prefix + "-date");
+		Score score = new Score();
+		if (points != null)
+			score.setPoints(Integer.parseInt(points));
+		if (level != null)
+			score.setLevelNumber(Integer.parseInt(level));
+		if (date != null)
+			score.setDate(LocalDate.parse(date));
+		return score;
+	}
+
 /*
+	public void saveNewHighscore() {
+
 		var file = highscoreFile(variant());
 		var oldHiscore = loadHighscore(file);
 		if (highScore.points() <= oldHiscore.points()) {
@@ -715,9 +737,22 @@ public class GameModel {
 			Logger.error("Highscore could not be saved. File '{}' Reason: {}", file, x.getMessage());
 		}
 */
+
+	// WebFX version of saveNewHighscore()
+
+	public void saveNewHighscore() {
+		var oldHiscore = loadHighscoreInstance();
+		if (highScore.points() <= oldHiscore.points()) {
+			return;
+		}
+
+		String prefix = variant.toString();
+		LocalStorage.setItem(prefix + "-points", String.valueOf(highScore.points()));
+		LocalStorage.setItem(prefix + "-level", String.valueOf(highScore.levelNumber()));
+		LocalStorage.setItem(prefix + "-date", highScore.date().toString());
 	}
 
-	/** @return number of coins inserted. */
+		/** @return number of coins inserted. */
 	public int credit() {
 		return credit;
 	}
