@@ -4,6 +4,7 @@ module pacman.core {
 
     // Direct dependencies modules
     requires java.base;
+    requires webfx.platform.console;
     requires webfx.platform.storage;
     requires webfx.platform.util;
 

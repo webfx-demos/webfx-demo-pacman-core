@@ -1,8 +1,8 @@
 package org.tinylog;
 
-import java.time.Instant;
+import dev.webfx.platform.console.Console;
+
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -13,12 +13,12 @@ public class Logger {
 
     private static void println(String message, Object... args) {
         message = message.replaceAll("\\{[^}]*\\}", "__");
-        for (int i = 0; i < args.length; ++i) {
-            message = message.replaceFirst("__", String.valueOf(args[i]));
+        for (var arg : args) {
+            message = message.replaceFirst("__", String.valueOf(arg));
         }
         var dateFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss SSS");
         var prefix = LocalDateTime.now().format(dateFormat) + ": ";
-        System.out.println(prefix + message);
+        Console.log(prefix + message);
     }
 
     public static void trace(String message, Object... parameters) {
