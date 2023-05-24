@@ -668,7 +668,7 @@ public class GameLevel {
 				// Blinky's "cruise elroy" state is re-enabled when orange ghost is unlocked
 				setCruiseElroyStateEnabled(true);
 			}
-			Logger.info("{} unlocked: {}", unlockInfo.ghost().name(), unlockInfo.reason());
+			Logger.trace("{} unlocked: {}", unlockInfo.ghost().name(), unlockInfo.reason());
 		});
 	}
 }

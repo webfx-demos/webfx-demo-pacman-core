@@ -57,7 +57,7 @@ public class TickTimer {
 	}
 
 	public static String ticksToString(long ticks) {
-		return ticks == INDEFINITE ? "indefinite" : "%d"/*.formatted(ticks)*/;
+		return ticks == INDEFINITE ? "indefinite" : "" + ticks;
 	}
 
 	private final String name;
@@ -90,11 +90,16 @@ public class TickTimer {
 		}
 	}
 
-	/*@Override
+	@Override
 	public String toString() {
-		return "[%s %s tick: %s remaining: %s total: %s]".formatted(name, state, ticksToString(tick),
-				ticksToString(remaining()), ticksToString(duration));
-	}*/
+		var sb = new StringBuilder();
+		sb.append("[Timer ").append(name).append(" ").append(state)
+				.append(" ticked: ").append(ticksToString(tick))
+				.append(" remaining: ").append(ticksToString(remaining()))
+				.append(" duration: ").append(ticksToString(duration))
+				.append("]");
+		return sb.toString();
+	}
 
 	public State state() {
 		return state;

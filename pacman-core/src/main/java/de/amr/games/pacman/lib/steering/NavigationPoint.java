@@ -40,6 +40,15 @@ public class NavigationPoint {
 		this.dir = dir;
 	}
 
+	@Override
+	public String toString() {
+		return "NavigationPoint{" +
+				"x=" + x +
+				", y=" + y +
+				", dir=" + dir +
+				'}';
+	}
+
 	public int x() {
 		return x;
 	}
