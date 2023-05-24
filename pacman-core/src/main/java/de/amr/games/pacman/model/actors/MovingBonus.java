@@ -57,7 +57,7 @@ public class MovingBonus extends Creature implements Bonus {
 	private final RouteBasedSteering steering = new RouteBasedSteering();
 
 	public MovingBonus(BonusInfo info) {
-		super("MovingBonus-%d-%d"/*.formatted(info.symbol(), info.points())*/);
+		super("MovingBonus-" + info.symbol() + "-" + info.points());
 		super.reset(); // TODO check this
 
 		this.info = info;
@@ -80,11 +80,14 @@ public class MovingBonus extends Creature implements Bonus {
 		return this;
 	}
 
-	/*@Override
+	@Override
 	public String toString() {
-		return "[MovingBonus state=%s symbol=%d value=%d timer=%d tile=%s]".formatted(state, symbol(), points(), timer,
-				tile());
-	}*/
+		return "MovingBonus{" +
+				"info=" + info +
+				", timer=" + timer +
+				", state=" + state +
+				'}';
+	}
 
 	@Override
 	public byte state() {

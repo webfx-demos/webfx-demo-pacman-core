@@ -124,11 +124,20 @@ public abstract class Creature extends Entity {
 	 */
 	public abstract boolean canReverse(GameLevel level);
 
-	/*@Override
+	@Override
 	public String toString() {
-		return "%s: position=%s, tile=%s (%s), velocity=%s, moveDir=%s, wishDir=%s".formatted(name, position, tile(),
-				offset(), velocity, moveDir, wishDir);
-	}*/
+		return "Creature{" +
+				"name='" + name + '\'' +
+				", moveDir=" + moveDir +
+				", wishDir=" + wishDir +
+				", targetTile=" + targetTile +
+				", moveResult=" + moveResult +
+				", newTileEntered=" + newTileEntered +
+				", gotReverseCommand=" + gotReverseCommand +
+				", canTeleport=" + canTeleport +
+				", corneringSpeedUp=" + corneringSpeedUp +
+				'}';
+	}
 
 	/** Readable name, for display and logging purposes. */
 	public String name() {

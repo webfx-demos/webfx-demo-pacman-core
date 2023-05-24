@@ -84,11 +84,18 @@ public class Ghost extends Creature implements AnimatedEntity {
 		reset();
 	}
 
-	/*@Override
+	@Override
 	public String toString() {
-		return "[%-6s (%s) position=%s tile=%s offset=%s velocity=%s dir=%s wishDir=%s reverse=%s]".formatted(name(), state,
-				position, tile(), offset(), velocity, moveDir(), wishDir(), gotReverseCommand);
-	}*/
+		return "Ghost{" +
+				"id=" + id +
+				", state=" + state +
+				", initialPosition=" + initialPosition +
+				", revivalPosition=" + revivalPosition +
+				", scatterTile=" + scatterTile +
+				", initialDirection=" + initialDirection +
+				", killedIndex=" + killedIndex +
+				'}';
+	}
 
 	/**
 	 * The ghost ID. One of {@link GameModel#RED_GHOST}, {@link GameModel#PINK_GHOST}, {@link GameModel#CYAN_GHOST},

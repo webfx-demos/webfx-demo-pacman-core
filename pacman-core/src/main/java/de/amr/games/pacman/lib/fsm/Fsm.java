@@ -24,6 +24,7 @@ SOFTWARE.
 package de.amr.games.pacman.lib.fsm;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.tinylog.Logger;
@@ -62,10 +63,15 @@ public abstract class Fsm<S extends FsmState<C>, C> {
 		this.name = name;
 	}
 
-	/*@Override
+	@Override
 	public String toString() {
-		return "FSM[name=%s, state=%s, prev=%s]".formatted(name, currentState, prevState);
-	}*/
+		return "Fsm{" +
+				"states=" + Arrays.toString(states) +
+				", currentState=" + currentState +
+				", prevState=" + prevState +
+				", name='" + name + '\'' +
+				'}';
+	}
 
 	/**
 	 * @return the context passed to the state lifecycle methods

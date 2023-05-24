@@ -59,12 +59,15 @@ public class Pac extends Creature implements AnimatedEntity {
 		return this;
 	}
 
-	/*@Override
+	@Override
 	public String toString() {
-		return "['%s' position=%s offset=%s tile=%s velocity=%s speed=%.2f moveDir=%s wishDir=%s dead=%s restingTicks=%d starvingTicks=%d]"
-				.formatted(name(), position, offset(), tile(), velocity, velocity.length(), moveDir(), wishDir(), dead,
-						restingTicks, starvingTicks);
-	}*/
+		return "Pac{" +
+				"powerTimer=" + powerTimer +
+				", dead=" + dead +
+				", restingTicks=" + restingTicks +
+				", starvingTicks=" + starvingTicks +
+				'}';
+	}
 
 	@Override
 	public boolean canReverse(GameLevel level) {
